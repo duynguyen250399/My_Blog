@@ -1,0 +1,29 @@
+<div id="leftContent">
+    {{#if category}}
+    <h3><a href="/categories/{{category.id}}">{{category.name}}</a> <i class="fas fa-chevron-right"></i> <a
+            href="/categories">Full Category</a></h3>
+    {{/if}}
+    {{#unless category}}
+    <h3><a href="/categories">Full Category</a></h3>
+    {{/unless}}
+
+    {{#unless blog_list}}
+    <h3>No Blogs!</h3>
+    {{/unless}}
+
+    {{#if blog_list}}
+    {{#each blog_list}}
+    <section class="blog-section">
+        <div>
+            <h1>{{this.title}}</h1>
+            <p class="posted-date"></p>
+
+            <p class="blog-des"><img src="{{this.photo}}" alt="blog_image" class="blog-image">{{this.content}}</p>
+            <a href="/blogs/{{this.id}}" class="read-more-btn" style="float: right;">Read more</a>
+        </div>
+        <div style="clear: both;"></div>
+    </section>
+
+    {{/each}}
+    {{/if}}
+</div>

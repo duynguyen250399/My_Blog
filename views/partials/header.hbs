@@ -1,0 +1,49 @@
+<script>
+    $(document).ready(function () {
+        let status = localStorage.getItem('status')
+        let element = ''
+        if (status === 'Home') {
+            element = '#home'
+        }
+        else if (status === 'Contact') {
+            element = '#contact'
+        }
+
+        if (element === '#home' || element === '#contact') {
+            $(element).addClass('active');
+            $(element).parent().siblings().children().removeClass('active');
+        }
+        else {
+            $('.nav-item').children().removeClass('active')
+        }
+
+    })
+</script>
+
+<header>
+    <div id="blogName"><a href="/">My Blog</a></div>
+    <nav class="navbar">
+        <ul class="nav-items">
+            <li class="nav-item"><a id="home" href="/" class="nav-link active float-left">Home</a></li>
+            <li class="nav-item"><a id="contact" href="/contact" class="nav-link float-left">Contact</a></li>
+            {{#unless user}}
+            <li class="nav-item"><a href="/auth/signin" class="sign-in-btn nav-link float-right">Sign In</a></li>
+            <li class="nav-item"><a href="/signup" class="sign-up-btn nav-link float-right">Sign Up</a></li>
+            {{/unless}}
+
+            {{#if user}}
+            <li class="nav-item"><a href="/user/logout" class="logout-btn nav-link float-right">Logout</a></li>
+            <li class="nav-item">
+                <a href="/user/profile" class="nav-link float-right" style="padding-left: 0">
+                    {{user.fullname}}</a>
+            </li>
+            <li class="nav-item">
+                <span class="float-right"><img src="/{{user.photo}}" alt="user-avatar" id="avatar"></span>
+                </li>
+            {{/if}}
+            <div style="clear: both;"></div>
+        </ul>
+
+
+    </nav>
+</header>

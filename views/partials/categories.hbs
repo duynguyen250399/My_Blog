@@ -1,0 +1,25 @@
+{{#if categories}}
+<div id="categories">
+    <h1>Categories</h1>
+    <ul>
+
+    </ul>
+</div>
+{{/if}}
+
+<script>
+    $(document).ready(function () {
+        let categoryList = $('#categories ul')
+        $.ajax({
+            type: 'GET',
+            url: '/api/categories',
+            success: function (categories) {
+                categoryList.html(categories.map((category) => {
+                    return '<li><i class="fas fa-chevron-right cate-icon"></i><a href="/categories/' +
+                        category._id + '">' +
+                        category.name + '</a></li>'
+                }))
+            }
+        })
+    })
+</script>

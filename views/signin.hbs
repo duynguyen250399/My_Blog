@@ -1,0 +1,22 @@
+<form action="/auth/signin" method="POST" id="form">
+    <h2>Login to My Blog</h2>
+    <p>Username</p>
+    <input type="text" placeholder="Username" name="username" required>
+    <p>Password</p>
+    <input type="password" placeholder="Password" name="password" required><br>
+    {{#if errors}}
+    {{#each errors}}
+    <p class="fail-alert">{{this}}</p>
+    {{/each}}
+    {{/if}}
+    <button type="submit">Sign In</button><br>
+    <a href="/user/signup">Don't have account yet? Register now!</a>
+</form>
+
+<script>
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('.fail-alert').fadeOut(400)
+        }, 1000)
+    })
+</script>

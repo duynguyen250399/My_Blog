@@ -1,0 +1,31 @@
+{{#if comments}}
+<input type="hidden" id="blogID" value="{{comments.[0].blog_id}}">
+<div id="userComments">
+
+</div>
+{{/if}}
+<script>
+    $(document).ready(function () {
+        let blog_id = $('#blogID').val()
+       
+        let userComments = $('#userComments')
+        $.ajax({
+            type: 'GET',
+            url: `http://localhost:3000/api/comments/${blog_id}`,
+            success: function(comments){             
+                if(comments){
+                    let numOfComments = `<p id='numOfComments' style="margin: 5px"><span>${comments.length}</span> comment(s)</p>`
+                    userComments.append(numOfComments)
+                    let userCommentsHTML = comments.map((comment) =>{
+                        let userPhoto = `<img src="/${comment.user_photo}" alt="avatar">`
+                        let userFullName = `<span>${comment.user_fullname}</span>`
+                        let content = `<p>${comment.content}</p>`
+                        return '<div id = "userComment">' + userPhoto + userFullName + content + '</div>'
+                    })
+                    userComments.append(userCommentsHTML)
+                    
+                }
+            }
+        })
+    })
+</script>

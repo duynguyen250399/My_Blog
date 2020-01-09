@@ -1,0 +1,21 @@
+<div id="leftContent">
+    {{#if category}}
+    <h3><a href="/categories/{{category.id}}">{{category.name}}</a> <i class="fas fa-chevron-right"></i> <a
+            href="/categories">Full Category</a></h3>
+    {{/if}}
+    {{#unless category}}
+    <h3><a href="/categories">Full Category</a></h3>
+    {{/unless}}
+
+    {{#if blogDetails}}
+    <section class="blog-section">
+        <div>
+            <h1 style="margin-bottom: 30px;">{{blogDetails.title}}</h1>
+            <img src="{{blogDetails.photo}}" alt="blog_image">
+            <p class="blog-des" style="margin-top: 20px; color: black">{{blogDetails.content}}</p>
+        </div>
+    </section>
+    {{> comment-form}}
+    {{> user-comment}}
+    {{/if}}
+</div>

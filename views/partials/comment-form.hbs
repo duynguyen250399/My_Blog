@@ -1,0 +1,43 @@
+<div id="commentForm">
+    <h2>Comment</h2>
+    <div contenteditable="true" class="content" id="contentEditable"></div>
+    <input type="hidden" name="blogID" value="{{blogDetails.id}}" id="blogHidden">
+    <input type="hidden" name="userID" value="{{user.id}}">
+    <button type="submit" class="send-comment-btn" id="postCommentBtn"><i class="fas fa-paper-plane"></i>
+        <span>Send</span></button>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        let postCommentButton = $('#postCommentBtn')
+        let blog_id = $('#blogHidden').val()
+        let userComments = $('#userComments')   
+
+        postCommentButton.click(() => {
+
+            let contentEditable = $('#contentEditable').text()
+            let postCommentUrl = `http://localhost:3000/api/comments/${blog_id}`
+            $.ajax({
+                type: 'POST',
+                url: postCommentUrl,
+                data: { content: contentEditable },
+                success: function (comment) {
+                    let userPhoto = `<img src="/${comment.user_photo}" alt="avatar">`
+                    let userFullName = `<span>${comment.user_fullname}</span>`
+                    let content = `<p>${comment.content}</p>`
+                    let userCommentHTML = '<div id = "userComment">' + userPhoto + userFullName + content + '</div>'
+                    userComments.append(userCommentHTML)
+                    let numOfCommentsHTML = $('#numOfComments')
+                    let numOfCommentsText = numOfCommentsHTML.text().split(' ')[0]
+                    let numOfComments = Number.parseInt(numOfCommentsText)
+                    numOfCommentsHTML.text((numOfComments + 1) + ' comment(s)')
+                },
+                error: function () {
+                    alert('Fail to post comment!')
+                }
+            })
+
+        })
+    })
+</script>

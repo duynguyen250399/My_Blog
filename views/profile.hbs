@@ -1,0 +1,51 @@
+<div class="user-profile">
+    <div class="photo">
+        <img src="/{{user.photo}}" alt="avatar" class="user-photo" id="userAvatar">
+        <button id="changeBtn">Change avatar <i class="far fa-id-card"></i></button>
+    </div>
+    <div class="details">
+        <h1>{{user.fullname}}</h1>
+        <p>Email: {{user.email}}</p>
+        <p>Sex: {{user.sex}}</p>
+    </div>
+</div>
+
+<div id="modal">
+    <div class="modal-content">
+        <div class="modal-title">Upload your avatar</div>
+        <span class="close">&times;</span>
+        <form action="/upload/avatar" class="file-form" enctype="multipart/form-data" method="POST">
+            <input id="fileInput" type="file" name="userAvatar"><br>
+            <div class="image-view">
+                <img src="/images/user_images/no-image.png" alt="view" id="imageView">
+            </div>
+            <button type="submit" id="uploadBtn">Upload</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    
+    $(document).ready(function(){
+        let modal = $('#modal')
+        let closeButton = $('.close')
+        let changeAvtButton = $('#changeBtn')
+        let fileInput = $('#fileInput')
+        let imageView = $('#imageView')
+        
+        changeAvtButton.click((e) =>{
+            modal.fadeIn(500)
+        })
+
+        closeButton.click((e) =>{
+            modal.fadeOut(300)
+        })
+
+        fileInput.change((e) =>{
+            let files = fileInput.files
+            alert(files.length)
+        })
+       
+       
+    })
+</script>
